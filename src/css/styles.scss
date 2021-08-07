@@ -1,28 +1,28 @@
 // for loading font-awesome icons
 $fa-font-path: '~font-awesome/fonts/';
 
-@import '~font-awesome/scss/font-awesome';
+@import '../../node_modules/font-awesome/scss/font-awesome';
 
 /*===========================================
 ===== Loading Custom Setup of Variables =====
 =============================================*/
-@import 'vars/typography';
-@import 'vars/body';
+@import 'src/css/vars/typography';
+@import 'src/css/vars/body';
 
 /*===========================================
 ========= Loading Bootstrap Styles ==========
 =============================================*/
-@import '~bootstrap/scss/bootstrap';
+@import '../../node_modules/bootstrap/scss/bootstrap';
 
 /*===========================================
 ========= Loading Customize Styles ==========
 =============================================*/
 // loading variables
-@import 'vars/checkbox';
+@import 'src/css/vars/checkbox';
 
 // loading blocks
-@import 'blocks/body';
+@import 'src/css/blocks/body';
 
 // loading elements
-@import 'elements/accordian-toggle';
-@import 'elements/checkbox';
+@import 'src/css/elements/accordian-toggle';
+@import 'src/css/elements/checkbox';

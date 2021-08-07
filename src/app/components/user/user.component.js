@@ -1,5 +1,5 @@
 import controller from './user.controller';
-import template from './user.html';
+import template from './user.pug';
 
 export default {
 	controller: controller,

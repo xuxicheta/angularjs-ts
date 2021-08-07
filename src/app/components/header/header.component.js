@@ -1,4 +1,4 @@
-import template from './header.html';
+import template from './header.pug';
 
 export default {
 	template: template

@@ -7,8 +7,8 @@ export default class UserService {
 		this.$http = $http;
 	}
 
-	get = () => {
+	get() {
 		return this.$http.get('https://jsonplaceholder.typicode.com/users')
 			.then((response) => response.data);
-	};
+	}
 }

@@ -1,6 +1,3 @@
-// for loading styles we need to load main scss file
-import './styles/styles.scss';
-
 // loading shared module
 import './services/core.module';
 // loading all module components

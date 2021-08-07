@@ -1,4 +1,4 @@
-export default class HomeController {
+class HomeController {
 	constructor($log) {
 		'ngInject';
 
@@ -10,3 +10,10 @@ export default class HomeController {
 		this.$log.info('Activated Home View.');
 	};
 }
+
+
+angular
+	.module('app.home')
+	.controller('HomeController', HomeController);
+
+

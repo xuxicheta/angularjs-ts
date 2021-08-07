@@ -1,20 +1,28 @@
 const webpack = require('webpack');
 const path = require('path');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
-const HtmlWebpackPugPlugin = require('html-webpack-pug-plugin');
-const devMode = process.env.NODE_ENV !== 'production'
+const devMode = process.env.NODE_ENV !== 'production';
+
+const sourcePath = path.resolve(__dirname, "src");
+
+const replacementPlugin = devMode
+	? new webpack.NormalModuleReplacementPlugin(
+		/\/environments\/environment\.ts/, `${sourcePath}/environments/environment.ts`
+	) : new webpack.NormalModuleReplacementPlugin(
+		/\/environments\/environment\.ts/, `${sourcePath}/environments/environment.prod.ts`
+	)
 
 const config = {
 	mode: devMode ? 'development' : 'production',
 	entry: {
-		'vendor': './src/vendor.module.js',
-		'app': './src/app.module.js'
+		'vendor': './src/vendor.ts',
+		'app': './src/app.ts'
 	},
-	devtool: devMode ? 'source-map': false,
+	devtool: devMode ? 'source-map' : false,
 	output: {
 		filename: 'libs/[name].bundle.js',
 		path: path.resolve(__dirname, 'build')
@@ -22,17 +30,25 @@ const config = {
 	module: {
 		rules: [
 			{
-				test: /\.js$/,
-				include: [path.resolve(__dirname, 'src')],
-				use: [ { loader: 'babel-loader'} ]
+				test: /\.tsx?$/,
+				loader: "ts-loader"
 			},
 			{
-
-				test: /\.(scss)$/,
+				test: /\.m?js$/,
+				exclude: /(node_modules|bower_components)/,
+				use: {
+					loader: "babel-loader",
+					options: {
+						presets: ["@babel/preset-env"]
+					}
+				}
+			},
+			{
+				test: /\.(s([ac])ss)$/,
 				use: [
-					devMode ? { loader: "style-loader" } : MiniCssExtractPlugin.loader,
-					{ loader: "css-loader" },
-					{ loader: "sass-loader" }
+					{loader: MiniCssExtractPlugin.loader},
+					{loader: "css-loader"},
+					{loader: "sass-loader"}
 				]
 			},
 			// for fixing of loading bootstrap icon files
@@ -43,7 +59,7 @@ const config = {
 					options: {
 						limit: 10000,
 						outputPath: 'fonts/',
-                        publicPath: '../fonts/',
+						publicPath: '../fonts/',
 						esModule: false,
 					}
 				}],
@@ -54,12 +70,19 @@ const config = {
 					loader: 'file-loader',
 					options: {
 						outputPath: 'fonts/',
-                        publicPath: '../fonts/',
+						publicPath: '../fonts/',
 						esModule: false,
 					}
 				}],
 			},
-			{ test: /\.html$/, loader: 'html-loader' }
+			{
+				test: /\.pug/,
+				use: ['html-loader', 'pug-html-loader'],
+			},
+			{
+				test: /\.html$/,
+				loader: 'html-loader'
+			},
 		]
 	},
 	optimization: {
@@ -71,12 +94,7 @@ const config = {
 	},
 	plugins: [
 		new CleanWebpackPlugin(),
-		new HtmlWebpackPugPlugin({
-			filename: 'index.pug',
-			minify: false
-		}),
-		new HtmlWebpackPlugin({ template: './src/index.pug' }),
-
+		new HtmlWebpackPlugin({template: './src/index.pug'}),
 		new webpack.ProvidePlugin({
 			jQuery: 'jquery',
 			$: 'jquery',

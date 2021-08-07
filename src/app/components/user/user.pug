@@ -1,0 +1,19 @@
+.container
+	h1
+		i.fa.fa-users
+		| &nbsp;Users
+	table.table.table-bordered
+		thead.thead-dark
+			th Name
+			th Username
+			th Email
+			th Website
+			th Company
+		tbody
+			tr(ng-repeat='user in $ctrl.users')
+				td {{user.name}}
+				td {{user.username}}
+				td
+					a(href='mailto:{{user.email}}') {{user.email}}
+				td {{user.website}}
+				td {{user.company.name}}

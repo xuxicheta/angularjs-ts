@@ -1,0 +1,14 @@
+nav.navbar.navbar-expand-lg.navbar-dark.bg-primary.fixed-top
+	a.navbar-brand(href='#') AngularJS ES6 Starter-Kit
+	button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navbar-menu' aria-controls='navbarNavAltMarkup' aria-expanded='false' aria-label='Toggle navigation')
+		span.navbar-toggler-icon
+	#navbar-menu.collapse.navbar-collapse
+		ul.navbar-nav
+			li.nav-item(ui-sref-active='active' data-toggle='collapse' data-target='#navbar-menu' aria-expanded='false')
+				a.nav-link(ui-sref='home')
+					i.fa.fa-home(aria-hidden='true')
+					| &nbsp;Home
+			li.nav-item(ui-sref-active='active' data-toggle='collapse' data-target='#navbar-menu' aria-expanded='false')
+				a.nav-link(ui-sref='user')
+					i.fa.fa-users(aria-hidden='true')
+					| &nbsp;Users

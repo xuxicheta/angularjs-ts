@@ -5,6 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
+const HtmlWebpackPugPlugin = require('html-webpack-pug-plugin');
 const devMode = process.env.NODE_ENV !== 'production'
 
 const config = {
@@ -13,7 +14,7 @@ const config = {
 		'vendor': './src/vendor.module.js',
 		'app': './src/app.module.js'
 	},
-	devtool: devMode ? 'source-map': 'none',
+	devtool: devMode ? 'source-map': false,
 	output: {
 		filename: 'libs/[name].bundle.js',
 		path: path.resolve(__dirname, 'build')
@@ -62,7 +63,7 @@ const config = {
 		]
 	},
 	optimization: {
-		minimize: true,
+		minimize: !devMode,
 		minimizer: [
 			new TerserPlugin(),
 			new CssMinimizerPlugin()
@@ -70,7 +71,12 @@ const config = {
 	},
 	plugins: [
 		new CleanWebpackPlugin(),
-		new HtmlWebpackPlugin({ template: './src/index.html' }),
+		new HtmlWebpackPugPlugin({
+			filename: 'index.pug',
+			minify: false
+		}),
+		new HtmlWebpackPlugin({ template: './src/index.pug' }),
+
 		new webpack.ProvidePlugin({
 			jQuery: 'jquery',
 			$: 'jquery',
@@ -86,7 +92,6 @@ const config = {
 		contentBase: './src/',
 		historyApiFallback: true
 	},
-	devtool: 'source-map',
 };
 
 module.exports = config;

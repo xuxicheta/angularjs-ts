@@ -22,10 +22,12 @@ const config = {
 		'vendor': './src/vendor.ts',
 		'app': './src/app.ts'
 	},
-	devtool: devMode ? 'source-map' : false,
+	devtool: devMode
+		? 'source-map'
+		: false,
 	output: {
-		filename: '[name].bundle.js',
-		path: path.resolve(__dirname, 'dist')
+		filename: '[name]-bundle.js?[chunkhash]',
+		path: path.resolve(__dirname, '../dist')
 	},
 	module: {
 		rules: [
@@ -35,7 +37,7 @@ const config = {
 			},
 			{
 				test: /\.[j]s$/,
-				exclude: /(node_modules|bower_components)/,
+				exclude: /(node_modules)/,
 				use: [
 					{
 						loader: "babel-loader",
@@ -63,6 +65,7 @@ const config = {
 						outputPath: 'fonts/',
 						publicPath: '../fonts/',
 						esModule: false,
+						name: '[name].[ext]',
 					}
 				}],
 			},

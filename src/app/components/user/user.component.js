@@ -1,7 +1,10 @@
-import controller from './user.controller';
 import template from './user.pug';
 
-export default {
-	controller: controller,
+
+const userComponent = {
+	controller: 'UserController',
 	template: template
 }
+
+
+angular.module('app.user').component('user', userComponent);

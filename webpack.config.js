@@ -24,8 +24,8 @@ const config = {
 	},
 	devtool: devMode ? 'source-map' : false,
 	output: {
-		filename: 'libs/[name].bundle.js',
-		path: path.resolve(__dirname, 'build')
+		filename: '[name].bundle.js',
+		path: path.resolve(__dirname, 'dist')
 	},
 	module: {
 		rules: [
@@ -34,14 +34,16 @@ const config = {
 				loader: "ts-loader"
 			},
 			{
-				test: /\.m?js$/,
+				test: /\.[j]s$/,
 				exclude: /(node_modules|bower_components)/,
-				use: {
-					loader: "babel-loader",
-					options: {
-						presets: ["@babel/preset-env"]
+				use: [
+					{
+						loader: "babel-loader",
+						options: {
+							presets: ["@babel/preset-env"]
+						}
 					}
-				}
+				]
 			},
 			{
 				test: /\.(s([ac])ss)$/,
@@ -94,6 +96,7 @@ const config = {
 	},
 	plugins: [
 		new CleanWebpackPlugin(),
+		replacementPlugin,
 		new HtmlWebpackPlugin({template: './src/index.pug'}),
 		new webpack.ProvidePlugin({
 			jQuery: 'jquery',

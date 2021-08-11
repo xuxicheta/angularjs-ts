@@ -1,5 +1,8 @@
 import template from './header.pug';
 
-export default {
+const headerComponent = {
 	template: template
 };
+
+
+angular.module('app.header').component('header', headerComponent);

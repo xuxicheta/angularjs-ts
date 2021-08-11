@@ -1,12 +1,10 @@
 (function() {
-	const homeComponent = {
-		selector: 'home',
-		template: require('./home.pug').default,
-		controller: 'HomeController',
-		controllerAs: 'vm',
-	};
-
 	angular
 		.module('app.home')
-		.component(homeComponent.selector, homeComponent);
+		.component('home', {
+			selector: 'home',
+			template: require('./home.pug').default,
+			controller: 'homeController',
+			controllerAs: 'vm',
+		});
 })();

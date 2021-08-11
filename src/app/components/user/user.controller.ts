@@ -1,7 +1,9 @@
-export default class UserController {
+class UserController {
+	public users;
+
 	constructor(
-		$log,
-		userService
+		private $log,
+		private userService
 	) {
 		'ngInject';
 
@@ -17,3 +19,5 @@ export default class UserController {
 		this.$log.info('Activated User View.');
 	};
 }
+
+angular.module('app.user').controller('UserController', UserController);

@@ -1,9 +1,4 @@
-// loading shared module
-import './services/core.module';
-// loading all module components
-import './app.components';
-
-const appModule = angular
+angular
 	.module('angularjs-es6-starter-kit', [
 		// shared module
 		'app.core',
@@ -15,4 +10,3 @@ const appModule = angular
 		'app.user'
 	]);
 
-export default appModule;

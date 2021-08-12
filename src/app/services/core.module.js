@@ -11,4 +11,3 @@ coreModule.config(routerHelperService);
 
 coreModule.service('userService', userService);
 
-export default coreModule;

@@ -111,7 +111,7 @@ const config = {
   plugins: [
     new CleanWebpackPlugin(),
     replacementPlugin,
-    new HtmlWebpackPlugin({template: './src/index.pug'}),
+    new HtmlWebpackPlugin({template: './src/index.html'}),
     new webpack.ProvidePlugin({
       jQuery: 'jquery',
       $: 'jquery',

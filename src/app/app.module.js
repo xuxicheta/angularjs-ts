@@ -5,8 +5,5 @@ angular
 		// 3rd party modules
 		'ui.router',
 		// application specific modules
-		'app.header',
-		'app.home',
-		'app.user'
 	]);
 

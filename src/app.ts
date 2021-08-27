@@ -1,2 +1,2 @@
 import './css/index.scss';
-import './imports';
+import './app/phonecat.module';

@@ -1,0 +1,35 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-2">
+      <!--Sidebar content-->
+
+      Search: <input ng-model="vm.query"/>
+
+    </div>
+
+
+    <p>
+      Sort by:
+      <select ng-model="vm.orderProp">
+        <option value="name">Alphabetical</option>
+        <option value="role">Role</option>
+      </select>
+    </p>
+
+
+    <div class="col-md-10">
+      <!--Body content-->
+
+      <ul class="phones">
+
+
+        <li ng-repeat="user in vm.users | filter:vm.query | orderBy:vm.orderProp">
+          <a href="#!/phones/{{user.id}}" class="thumb">1</a>
+          <div>{{user.name}}</div>
+          <div>{{user.role}}</div>
+        </li>
+
+
+    </div>
+  </div>
+</div>

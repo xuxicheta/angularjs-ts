@@ -3,110 +3,120 @@ const path = require('path');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const TerserPlugin = require("terser-webpack-plugin");
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 const devMode = process.env.NODE_ENV !== 'production';
 
-const sourcePath = path.resolve(__dirname, "src");
+const sourcePath = path.resolve(__dirname, 'src');
 
 const replacementPlugin = devMode
   ? new webpack.NormalModuleReplacementPlugin(
-    /\/environments\/environment\.ts/, `${sourcePath}/environments/environment.ts`
+    /\/environments\/environment\.ts/, `${sourcePath}/environments/environment.ts`,
   ) : new webpack.NormalModuleReplacementPlugin(
-    /\/environments\/environment\.ts/, `${sourcePath}/environments/environment.prod.ts`
-  )
+    /\/environments\/environment\.ts/, `${sourcePath}/environments/environment.prod.ts`,
+  );
 
 const config = {
-	resolve: {
-		alias: {
-			src: path.resolve(__dirname, '..', 'src'),
-		},
-	},
+  resolve: {
+    alias: {
+      src: path.resolve(__dirname, '..', 'src'),
+    },
+
+  },
   mode: devMode ? 'development' : 'production',
 
   entry: {
     'vendor': './src/vendor.ts',
-    'app': './src/app.ts'
+    'app': './src/app.ts',
   },
   devtool: devMode
     ? 'source-map'
     : false,
   output: {
     filename: '[name]-bundle.js?[chunkhash]',
-    path: path.resolve(__dirname, '../dist')
+    path: path.resolve(__dirname, '../dist'),
   },
   module: {
     rules: [
       {
         test: /\.tsx?$/,
-        loader: "ts-loader"
+        loader: 'ts-loader',
       },
       {
         test: /\.[j]s$/,
         exclude: /(node_modules)/,
         use: [
           {
-            loader: "babel-loader",
+            loader: 'babel-loader',
             options: {
-              presets: ["@babel/preset-env"]
-            }
-          }
-        ]
+              presets: ['@babel/preset-env'],
+            },
+          },
+        ],
       },
       {
         test: /\.(s([ac])ss)$/,
         use: [
           {loader: MiniCssExtractPlugin.loader},
-          {loader: "css-loader"},
-          {loader: "sass-loader"}
-        ]
+          {loader: 'css-loader'},
+          {loader: 'sass-loader'},
+        ],
       },
       // for fixing of loading bootstrap icon files
       {
         test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|eot|ttf)$/i,
-        use: [{
-          loader: 'url-loader',
-          options: {
-            limit: 10000,
-            outputPath: 'fonts/',
-            publicPath: '../fonts/',
-            esModule: false,
-            name: '[name].[ext]',
-          }
-        }],
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 10000,
+              outputPath: 'fonts/',
+              publicPath: '../fonts/',
+              esModule: false,
+              name: '[name].[ext]',
+            },
+          },
+        ],
       },
       {
         test: /\.(eot|ttf)$/,
-        use: [{
-          loader: 'file-loader',
-          options: {
-            outputPath: 'fonts/',
-            publicPath: '../fonts/',
-            esModule: false,
-          }
-        }],
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              outputPath: 'fonts/',
+              publicPath: '../fonts/',
+              esModule: false,
+            },
+          },
+        ],
       },
       {
         test: /\.pug/,
-        use: [{
-          loader: 'html-loader',
-          options: {
-            esModule: false,
+        use: [
+          {
+            loader: 'html-loader',
+            options: {
+              esModule: false,
+            },
           },
-        }, 'pug-html-loader'],
+          {
+            loader: 'pug-html-loader',
+          },
+        ],
       },
       {
         test: /\.html$/,
-        loader: 'html-loader'
+        loader: 'html-loader',
       },
-    ]
+    ],
   },
   optimization: {
     minimize: !devMode,
     minimizer: [
       new TerserPlugin(),
-      new CssMinimizerPlugin()
-    ]
+      new CssMinimizerPlugin(),
+    ],
   },
   plugins: [
     new CleanWebpackPlugin(),
@@ -115,17 +125,17 @@ const config = {
     new webpack.ProvidePlugin({
       jQuery: 'jquery',
       $: 'jquery',
-      jquery: 'jquery'
+      jquery: 'jquery',
     }),
     new MiniCssExtractPlugin({
-      filename: "[name].[fullhash].css",
-      chunkFilename: "[id].[fullhash].css"
-    })
+      filename: '[name].[fullhash].css',
+      chunkFilename: '[id].[fullhash].css',
+    }),
   ],
   devServer: {
     port: 3000,
     contentBase: './src/',
-    historyApiFallback: true
+    historyApiFallback: true,
   },
 };
 

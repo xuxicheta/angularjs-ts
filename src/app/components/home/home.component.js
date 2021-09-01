@@ -1,15 +1,30 @@
 (function() {
+	function homeController($log) {
+		var vm = this;
+		this.$onInit = $onInit;
+
+		function $onInit() {
+			vm.heading = 'Welcome to AngularJS ES6 Starter-Kit';
+			$log.info('Activated Home View.');
+		}
+
+		function onElementChange(value) {
+			console.log(value);
+		}
+	}
+
+	homeController.$inject = ['$log'];
+
 	angular
 		.module('app.home')
-		.component('home', {
-			selector: 'home',
-			templateUrl: '/src/app/components/home/home.html',
+		.controller('homeController', homeController);
+
+
+	angular
+		.module('app.home')
+		.component('soHome', {
+			template: require('./home.pug'),
 			controller: 'homeController',
 			controllerAs: 'vm',
 		});
-
-
-	angular.module('app.home').run($templateCache =>
-		$templateCache.put('/src/app/components/home/home.html', require('/src/app/components/home/home.pug'))
-	)
 })();

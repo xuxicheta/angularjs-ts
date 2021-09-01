@@ -2,7 +2,7 @@ export default [
 	{
 		name: 'home',
 		url: '/',
-		component: 'home'
+		component: 'soHome'
 	},
 	{
 		name: 'user',

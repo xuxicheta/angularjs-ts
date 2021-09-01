@@ -3,3 +3,4 @@ angular
 	.component('header', {
 		template: require('./header.pug'),
 	});
+

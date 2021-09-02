@@ -21,7 +21,7 @@ const config = {
     alias: {
       src: path.resolve(__dirname, '..', 'src'),
     },
-
+    extensions: ['.js', '.sass', '.ts'],
   },
   mode: devMode ? 'development' : 'production',
 
